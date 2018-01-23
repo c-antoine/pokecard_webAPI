@@ -8,11 +8,6 @@ function dbConnect(){
   $password="";
   $dbname="pokeapi";
 
-  // $servername="mysql.hostinger.com";
-  // $username = "u267870526_mejn";
-  // $dbname="u267870526_me";
-  // $password="Bue2nVwLPoN2";
-
   try {
       $bdd = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
       $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
