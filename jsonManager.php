@@ -19,43 +19,46 @@
 
 function getJSONCardsFromArray($arrayCardList){
   $masterArray = array();
+  // $jsonArray = array();
   foreach ($arrayCardList as $key => $value) {
-      // header('Content-type: application/json');
-
-      $jsonArray = array();
-      $jsonArray[$key] = json_decode(file_get_contents("https://pokeapi.co/api/v2/pokemon/".$value."/"), true);
-
-      // $forms = ($jsonArray[$key]['forms']);
-      // $abilities = ($jsonArray[$key]['abilities
-      $name = ($jsonArray[$key]['name']);
-      $xp = ($jsonArray[$key]['base_experience']);
-      $height = ($jsonArray[$key]['height']);
-      $weight = ($jsonArray[$key]['weight']);
-      $sprite = ($jsonArray[$key]['sprites']['front_default']);
-
-      $arrayToSend = array();
-      $arrayTypePokemon = array();
-      $arrayToSend['id']=$value;
-      $arrayToSend['name']=$name;
-      $arrayToSend['xp']=$xp;
-      foreach ($jsonArray[$key]['types'] as $subkey => $subvalue) {
-        if(!in_array($subvalue['type']['name'], $arrayTypePokemon)){
-          array_push($arrayTypePokemon, $subvalue['type']['name']);
-        }
-        // print_r($key);
-        // print_r($value);
-        // echo $value['type']['name'];
-        // $arrayToSend['type']=$arrayToSend['type']+$value[1]['name'];
-      }
-      $arrayToSend['type']=$arrayTypePokemon;
-      $arrayToSend['height']=$height;
-      $arrayToSend['weight']=$weight;
-      $arrayToSend['sprite']=$sprite;
-
-      $masterArray[$key] = $arrayToSend;
+      // $jsonArray[$key]=;
+      $masterArray[$key] = getJSONCardFromID($value);
   }
+  return $masterArray;
+}
+
+function getJSONCardFromID($value){
+  $jsonArray = array();
+  $jsonArray = json_decode(file_get_contents("https://pokeapi.co/api/v2/pokemon/".$value."/"), true);
+
+  $name = ($jsonArray['name']);
+  $xp = ($jsonArray['base_experience']);
+  $height = ($jsonArray['height']);
+  $weight = ($jsonArray['weight']);
+  $sprite = ($jsonArray['sprites']['front_default']);
+
+  $arrayToSend = array();
+  $arrayTypePokemon = array();
+  $arrayToSend['id']=$value;
+  $arrayToSend['name']=$name;
+  $arrayToSend['xp']=$xp;
+  //On concatène chaque type dans un String
+  foreach ($jsonArray['types'] as $subkey => $subvalue) {
+    if(!in_array($subvalue['type']['name'], $arrayTypePokemon)){
+      array_push($arrayTypePokemon, $subvalue['type']['name']);
+    }
+  }
+  $arrayToSend['type']=$arrayTypePokemon;
+  $arrayToSend['height']=$height;
+  $arrayToSend['weight']=$weight;
+  $arrayToSend['sprite']=$sprite;
+
+  return $arrayToSend;
+}
+
+function httpJsonEncoder($jsonArray){
   header('Content-type: application/json');
-  echo json_encode($masterArray);
+  echo json_encode($jsonArray);
 }
 
 ?>

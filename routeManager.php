@@ -1,67 +1,29 @@
 <?php
 
-require('sqlRequest.php');
-require('jsonManager.php');
+require('dataManager.php');
 
 function checkHttpGet($param){
-
-  /* L'utilisateur existe ?
-  $_GET['action'] = auth
-  $_GET['user'] = id_user
-  */
-  checkUser($param);
 
   /* Les détails d'une carte
   $_GET['action'] = details
   $_GET['card'] = id_card
   */
-  // checkCard($param);
+  checkCard($param);
 
   /* Liste des cartes lié à l'utilisateur
   $_GET['action'] = cardList
   $_GET['user'] = id_user
   */
-  // checkCardList($param);
+  checkUser($param);
 
   /* L'échange de carte
   $_GET['action'] = trade
-  $_GET['userFrom'] = id_user
-  $_GET['userTo'] = id_user
-  $_GET['idCard'] = id_card
+  $_GET['trade'] = create / accept / destroy
+  $_GET['userFrom'] = id_user qui veux échanger
+  $_GET['userTo'] = id_user destinataire
+  $_GET['card'] = id_card
   */
-  // checkTrade($params);
+  checkTrade($param);
 }
-
-function notEmpty($value){
-  if( (isset($value) && !empty($value)) ){
-    return true;
-  }else{
-    return false;
-  }
-}
-
-function checkUser($param){
-  if( notEmpty($param['action']) && $param['action']=='auth' && notEmpty($param['user']) ) {
-    if(getUser($param['user'])){
-      $cardList = getListCardForUser($param['user']);
-      echo getJSONCardsFromArray($cardList);
-    }else{
-      return false;
-    }
-  }
-}
-
-// function checkCard($param){
-//   if(  ){
-//     echo "1";
-// }
-//
-// function checkCardList($params){
-//
-// }
-//
-// function checkTrade($params){
-//
-// }
 
 ?>
