@@ -1,21 +1,4 @@
 <?php
-// $str = file_get_contents("https://pokeapi.co/api/v2/pokemon/1/");
-//
-// $jsonIterator = new RecursiveIteratorIterator(
-//     new RecursiveArrayIterator(json_decode($str, TRUE)),
-//     RecursiveIteratorIterator::SELF_FIRST);
-//
-// foreach ($jsonIterator as $key => $val) {
-//     if(is_array($val)) {
-//         echo "$key:<br>";
-//     } else {
-//         echo "$key => $val<br>";
-//     }
-// }
-
-// function extractPokemonData($unsortedData){
-//
-// }
 
 function getJSONCardsFromArray($arrayCardList){
   $masterArray = array();
