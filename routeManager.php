@@ -1,8 +1,16 @@
 <?php
-
+error_reporting(E_ALL | E_STRICT);
+ini_set('display_startup_errors',1);
+ini_set('display_errors',1);
 require('dataManager.php');
 
 function checkHttpGet($param){
+
+  checkPokedex($param);
+  /*
+  La liste de toutes les cartes
+  $_GET['action'] = pokedex
+  */
 
   /* Les détails d'une carte
   $_GET['action'] = details
@@ -23,7 +31,7 @@ function checkHttpGet($param){
   $_GET['userTo'] = id_user destinataire
   $_GET['card'] = id_card
   */
-  checkTrade($param);
+  // checkTrade($param);
 }
 
 ?>

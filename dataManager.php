@@ -1,6 +1,18 @@
 <?php
 require('sqlRequest.php');
 require('jsonManager.php');
+error_reporting(E_ALL | E_STRICT);
+ini_set('display_startup_errors',1);
+ini_set('display_errors',1);
+
+function checkPokedex($param){
+  if( notEmpty($param['action']) && $param['action']=='pokedex'){
+    //Fait un appel HTTP à pokeapiV2 et retourne une arrayList
+    $arrayToEncode = getJSONPokedex();
+    //Encode le tableau en JSON et le retourne
+    httpJsonEncoder($arrayToEncode);
+  }
+}
 
 /*
 $_GET['action'] = cardlist
